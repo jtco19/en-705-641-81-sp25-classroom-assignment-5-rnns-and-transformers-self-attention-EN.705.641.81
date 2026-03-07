@@ -39,6 +39,8 @@ class Trainer:
             self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         else:
             self.device = config.device
+        if self.device == 'cuda' and not torch.cuda.is_available():
+            raise ValueError("CUDA requested but not available. Set config.device to 'auto' or 'cpu'.")
         self.model = self.model.to(self.device)
         print("running on device", self.device)
 
